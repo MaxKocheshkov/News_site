@@ -16,6 +16,9 @@
         {% for scope in article.scopes.all %}
           <span class="badge {% if scope.is_main %}badge-primary{% else %}badge-secondary{% endif %}">{{ scope.topic }}</span>
         {% endfor %}
+        {% for tag in tags %}
+          <p class="tags">{{ article.tag }}</p>
+        {% endfor %}
       </div>
     </div>
   </div>
