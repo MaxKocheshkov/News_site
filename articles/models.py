@@ -25,8 +25,8 @@ class Thematic(models.Model):
 
     class Meta:
         db_table = 'tags'
-        verbose_name = 'Тэги'
-        verbose_name_plural = 'Тэг'
+        verbose_name = 'Теги'
+        verbose_name_plural = 'Тег'
 
     def __str__(self):
         return self.tag
