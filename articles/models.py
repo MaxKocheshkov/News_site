@@ -7,11 +7,6 @@ class Article(models.Model):
     published_at = models.DateTimeField(verbose_name='Дата публикации')
     image = models.ImageField(null=True, blank=True, verbose_name='Изображение', )
 
-    tags = models.ManyToManyField(
-        'Thematic',
-        through='Membership'
-    )
-
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
@@ -22,6 +17,11 @@ class Article(models.Model):
 
 class Thematic(models.Model):
     tag = models.CharField(max_length=10)
+    tags = models.ManyToManyField(
+        Article,
+        through='Membership',
+        through_fields=('tag', 'article')
+    )
 
     class Meta:
         db_table = 'tags'
@@ -33,5 +33,6 @@ class Thematic(models.Model):
 
 
 class Membership(models.Model):
-    tag = models.ForeignKey(Thematic, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Thematic, on_delete=models.CASCADE, verbose_name='РАЗДЕЛ')
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    main_tag = models.BooleanField(default=False, verbose_name='Основной')
